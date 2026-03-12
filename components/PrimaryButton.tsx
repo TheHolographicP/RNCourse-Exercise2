@@ -1,14 +1,16 @@
 import { View, Text, Pressable, StyleSheet, GestureResponderEvent } from "react-native";
+import { StyleProp, ViewStyle } from "react-native";
 
 interface PrimaryButtonProps {
     displayText: string,
-    callOnPress: (event: GestureResponderEvent) => void
+    callOnPress: (event: GestureResponderEvent) => void,
+    style?: StyleProp<ViewStyle>;
 }
 
-function PrimaryButton({displayText, callOnPress}: PrimaryButtonProps) {
-    return <View>
+function PrimaryButton({displayText, callOnPress, style}: PrimaryButtonProps) {
+    return <View style={style}>
         <Pressable onPress={callOnPress} style={({pressed}) => pressed ? styles.addGoalButtonPressed : styles.addGoalButton}>
-            <Text>{displayText}</Text>
+            <Text style={styles.text}>{displayText}</Text>
         </Pressable>
     </View>
 }
@@ -24,6 +26,9 @@ const styles = StyleSheet.create({
         backgroundColor:"#b18d72",
         borderRadius: 6,
         padding: 8
+    },
+    text: {
+        alignSelf: 'center'
     }
 });
 
