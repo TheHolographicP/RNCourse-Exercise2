@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { StyleSheet, ImageBackground } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LinearGradient } from 'expo-linear-gradient';
 
@@ -19,19 +20,21 @@ export default function App() {
   }
 
   return (
-    <LinearGradient style={styles.rootScreen} colors={['#EF8354','#4F5D75']}>
-      <ImageBackground
-        source={require('assets/background.png')}
-        resizeMode='cover'
-        style={styles.imageBkg}
-        imageStyle={{opacity:0.15}}
-      >
-        
-      {screen}
+    <SafeAreaView>
+      <LinearGradient style={styles.rootScreen} colors={['#EF8354','#4F5D75']}>
+        <ImageBackground
+          source={require('assets/background.png')}
+          resizeMode='cover'
+          style={styles.imageBkg}
+          imageStyle={{opacity:0.15}}
+        >
+          
+        {screen}
 
 
-      </ImageBackground>
-    </LinearGradient>
+        </ImageBackground>
+      </LinearGradient>
+    </SafeAreaView>
   );
 }
 
@@ -41,7 +44,5 @@ const styles = StyleSheet.create({
   },
   imageBkg: {
     flex:1,
-    paddingTop:50,
-    paddingHorizontal:16,
   }
 });
