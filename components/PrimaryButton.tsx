@@ -18,17 +18,19 @@ function PrimaryButton({displayText, callOnPress, style}: PrimaryButtonProps) {
 
 const styles = StyleSheet.create({
     addGoalButton: {
-        backgroundColor:"#F1BF98",
+        backgroundColor:"#2D3142",
         borderRadius: 6,
-        padding: 8
+        padding: 8,
+        
     },
     addGoalButtonPressed: {
-        backgroundColor:"#b18d72",
+        backgroundColor:"#373b50",
         borderRadius: 6,
         padding: 8
     },
     text: {
-        alignSelf: 'center'
+        alignSelf: 'center',
+        color: 'white'
     }
 });
 
