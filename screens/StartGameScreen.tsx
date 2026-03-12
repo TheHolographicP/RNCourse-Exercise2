@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { TextInput, Text, View, StyleSheet} from 'react-native';
+import { TextInput, Text, View, StyleSheet, Alert} from 'react-native';
 import PrimaryButton from 'components/PrimaryButton'
 
+interface StartGameScreenProps {
+    callOnSubmit:(validNumber: number ) => void
+}
 
-function StartGameScreen() {
+function StartGameScreen({callOnSubmit} : StartGameScreenProps) {
     const [numberInputText, setNumberInputText] = useState('')
 
     function inputHandler(enteredText: string): void {
@@ -16,6 +19,16 @@ function StartGameScreen() {
     }
 
     function handleSubmit(){
+        const chosenNumber = parseInt(numberInputText)
+        if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99  ) {
+            Alert.alert(
+                'Invalid number!',
+                'Number must be an integer greater than 0 and less than 100',
+                [{text: 'Ok', style: 'destructive', onPress: handleReset}]
+            )
+            return;
+        }
+        callOnSubmit(chosenNumber)
 
     }
 
@@ -33,7 +46,7 @@ function StartGameScreen() {
                 />
                 <View style={styles.buttonContainer}>
                     <PrimaryButton callOnPress={handleReset} displayText='Reset' style={styles.button}/>
-                    <PrimaryButton callOnPress={handleReset} displayText='Confirm' style={styles.button}/>
+                    <PrimaryButton callOnPress={handleSubmit} displayText='Confirm' style={styles.button}/>
                 </View>
             </View>
         </View>
