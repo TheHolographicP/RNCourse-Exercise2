@@ -16,11 +16,11 @@ export default function App() {
   
   let screen = <StartGameScreen callOnSubmit={selectedNumberHandler}/>
   if (userNumber) {
-    screen = <GameScreen/>
+    screen = <GameScreen chosenNumber={userNumber}/>
   }
 
   return (
-    <SafeAreaView>
+    
       <LinearGradient style={styles.rootScreen} colors={['#EF8354','#4F5D75']}>
         <ImageBackground
           source={require('assets/background.png')}
@@ -28,13 +28,11 @@ export default function App() {
           style={styles.imageBkg}
           imageStyle={{opacity:0.15}}
         >
-          
-        {screen}
-
-
+          <SafeAreaView style={styles.rootScreen} >
+            {screen}
+          </SafeAreaView>
         </ImageBackground>
       </LinearGradient>
-    </SafeAreaView>
   );
 }
 
