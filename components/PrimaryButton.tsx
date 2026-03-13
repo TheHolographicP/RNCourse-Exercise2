@@ -1,5 +1,6 @@
 import { View, Text, Pressable, StyleSheet, GestureResponderEvent } from "react-native";
 import { StyleProp, ViewStyle } from "react-native";
+import Colors from 'constants/colors'
 
 interface PrimaryButtonProps {
     displayText: string,
@@ -18,7 +19,7 @@ function PrimaryButton({displayText, callOnPress, style}: PrimaryButtonProps) {
 
 const styles = StyleSheet.create({
     addGoalButton: {
-        backgroundColor:"#2D3142",
+        backgroundColor:Colors.primary1,
         borderRadius: 6,
         padding: 8,
         

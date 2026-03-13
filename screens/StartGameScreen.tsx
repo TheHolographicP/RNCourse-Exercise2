@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { TextInput, Text, View, StyleSheet, Alert} from 'react-native';
 import PrimaryButton from 'components/PrimaryButton'
+import Colors from 'constants/colors'
+
 
 interface StartGameScreenProps {
     callOnSubmit:(validNumber: number ) => void
@@ -33,7 +35,7 @@ function StartGameScreen({callOnSubmit} : StartGameScreenProps) {
     }
 
     return (
-        <View>
+        <View style={{flex:1}}>
             <View style={styles.inputContainer}>
                 <TextInput
                     style={styles.targetInput}
@@ -57,8 +59,9 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: 'column',
         gap:10,
-        backgroundColor:'#BFC0C0',
+        backgroundColor:Colors.primary3,
         padding:8,
+        margin: 8,
         borderRadius:8
     },
     buttonContainer: {
@@ -73,7 +76,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius: 6,
         padding:7,
-        borderColor: '#2D3142',
+        borderColor: Colors.primary1,
         color: 'white',
         fontSize:30,
         textAlign: 'center'
