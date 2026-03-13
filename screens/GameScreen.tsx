@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
         padding:8,
         margin: 8,
         borderRadius:8,
+        gap: 10
     },
     
     numberDisplayContainer: {

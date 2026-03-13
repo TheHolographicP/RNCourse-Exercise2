@@ -14,7 +14,7 @@ export default function App() {
 
   function selectedNumberHandler(choice:number) {
     setUserNumber(choice)
-    setGameIsOver(true)
+    setGameIsOver(false)
   }
 
   function victoryHandler() {
