@@ -1,21 +1,32 @@
 import { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Alert } from 'react-native'
 
 import NumberView from 'components/NumberView';
+import PrimaryButton from 'components/PrimaryButton'
 
 interface GameScreenProps {
-    chosenNumber:number
+    chosenNumber:number,
+    onVictory: ()=> void
 }
 
 
 
-function GameScreen({chosenNumber}:GameScreenProps) {
+function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     const [currentGuess, setCurrentGuess] = useState(0)
     const [guessLoading, setGuessLoading] = useState(true)
-    
+    const [guessRange, setGuessRange] = useState({min:1,max:100})
+
+
     useEffect(() => {
-        generateGuess(1, 100, chosenNumber);
+        generateGuess(guessRange.min, guessRange.max, chosenNumber);
     }, [chosenNumber]);
+
+    useEffect(() => {
+        if (currentGuess === chosenNumber) {
+            console.log('victory')
+            onVictory()
+        }
+    }, [currentGuess, chosenNumber, onVictory])
 
     async function generateGuess(min:number,max:number,exclude:number) {
         setGuessLoading(true)
@@ -29,12 +40,40 @@ function GameScreen({chosenNumber}:GameScreenProps) {
         setCurrentGuess(randomNum);
     }
 
+    async function nextGuessHandler(higher:boolean) {
+
+        if (higher && currentGuess > chosenNumber) {
+            Alert.alert("Incorrect","The current guess is not greater than the chosen number")
+            return;
+        }
+        if (!higher && currentGuess < chosenNumber) {
+            Alert.alert("Incorrect","The current guess is not lesser than the chosen number")
+            return;
+        }
+
+
+        let newMin = guessRange.min
+        let newMax = guessRange.max
+
+        if (higher) {
+            newMin = currentGuess+1
+        } else {
+            newMax = currentGuess
+        }
+        setGuessRange({min: newMin, max: newMax});       
+        await generateGuess(newMin, newMax, currentGuess)
+    }
+
     return (
     <View>
-        <View>
+        <View style={styles.headerWrapper}>
             <View style={styles.numberDisplayContainer}>
                 <NumberView value={chosenNumber} isLoading={false} title={'Chosen Number'}/>
                 <NumberView value={currentGuess} isLoading={guessLoading} title={'Current Guess'}/>
+            </View>
+            <View style={styles.buttonContainer}>
+                <PrimaryButton callOnPress={() => nextGuessHandler(true)} displayText='Higher' style={styles.button}/>
+                <PrimaryButton callOnPress={() => nextGuessHandler(false)} displayText='Lower' style={styles.button}/>
             </View>
         </View>
     </View>
@@ -42,11 +81,14 @@ function GameScreen({chosenNumber}:GameScreenProps) {
 }
 
 const styles = StyleSheet.create({
-    numberDisplayContainer: {
+    headerWrapper:{
         backgroundColor:'#BFC0C0',
         padding:8,
         margin: 8,
         borderRadius:8,
+    },
+    
+    numberDisplayContainer: {
         flexDirection: 'row',
         gap: 10,
         alignItems: 'stretch',
