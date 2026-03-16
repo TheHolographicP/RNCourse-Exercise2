@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     numberValue: {
-        color: 'white',
-        fontSize:20,
+        color: Colors.primary5,
+        fontSize:16,
         textAlign: 'center'
     },
 })

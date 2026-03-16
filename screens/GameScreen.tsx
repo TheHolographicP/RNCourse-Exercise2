@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Alert } from 'react-native'
+import { View, StyleSheet, Alert } from 'react-native'
 
 import NumberView from 'components/NumberView';
 import PrimaryButton from 'components/PrimaryButton'
 import ScreenTitle from 'components/ScreenTitle';
 import AppTitle from 'components/AppTitle';
-
+import GuessLog from 'components/GuessLog';
 
 interface GameScreenProps {
     chosenNumber:number,
@@ -18,7 +18,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     const [currentGuess, setCurrentGuess] = useState(0)
     const [guessLoading, setGuessLoading] = useState(true)
     const [guessRange, setGuessRange] = useState({min:1,max:100})
-    const [guessRounds, setGuessRounds] = useState(0)
+    const [guessItems, setGuessItems] = useState<number[]>([])
 
     useEffect(() => {
         generateGuess(guessRange.min, guessRange.max, chosenNumber);
@@ -27,7 +27,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     useEffect(() => {
         if (currentGuess === chosenNumber) {
             console.log('victory')
-            onVictory(guessRounds)
+            onVictory(guessItems.length)
         }
     }, [currentGuess, chosenNumber, onVictory])
 
@@ -41,7 +41,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         setGuessLoading(false);
         setCurrentGuess(randomNum);
-        setGuessRounds(prev => prev + 1);
+        setGuessItems(prev => [randomNum, ...prev]);
     }
 
     async function nextGuessHandler(higher:boolean) {
@@ -72,6 +72,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     <View style={{flex:1}}>
         <AppTitle/>
         <View style={styles.contentContainer}>
+            
             <View style={styles.headerWrapper}>
                 <ScreenTitle>Opponent's Guess</ScreenTitle>
                 <View style={styles.numberDisplayContainer}>
@@ -83,6 +84,10 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
                     <PrimaryButton callOnPress={() => nextGuessHandler(false)} displayText='Lower' style={styles.button}/>
                 </View>
             </View>
+            <View style={styles.headerWrapper}>
+                <ScreenTitle>Previous Guesses</ScreenTitle>
+                <GuessLog guesses={guessItems} />
+            </View>
         </View>
     </View>
     )
@@ -92,9 +97,10 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex:1,
         flexDirection: 'column',
-        gap:10,
+        gap:20,
         alignItems: 'stretch',
-        justifyContent: 'center'
+        justifyContent: 'flex-start',
+        marginTop: 20
     },
     
     headerWrapper:{
@@ -102,8 +108,8 @@ const styles = StyleSheet.create({
         padding:8,
         borderRadius:8,
         gap: 10,
+        flex:1
     },
-    
     numberDisplayContainer: {
         flexDirection: 'row',
         gap: 10,
