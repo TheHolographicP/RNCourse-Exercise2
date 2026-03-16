@@ -4,7 +4,13 @@ import Colors from 'constants/colors'
 import AppTitle from 'components/AppTitle';
 import ScreenTitle from 'components/ScreenTitle';
 
-function GameOverScreen() {
+interface GameOverScreenProps {
+    guessRequired:number,
+    numberSelected:number,
+    callStartNewGame:()=>void
+}
+
+function GameOverScreen({guessRequired, numberSelected, callStartNewGame}:GameOverScreenProps) {
     return <View style={{flex:1}}>
             <AppTitle/>
             <View style={styles.contentContainer}>
@@ -16,12 +22,12 @@ function GameOverScreen() {
                 <View style={styles.inputContainer}>
                     <Text style={styles.endText}>
                         Your phone needed
-                        <Text style={styles.highlight}> 10 </Text>
+                        <Text style={styles.highlight}> {guessRequired} </Text>
                         rounds to guess the number
-                        <Text style={styles.highlight}> 42 </Text>
+                        <Text style={styles.highlight}> {numberSelected} </Text>
                     </Text>
                     <View style={styles.buttonContainer}>
-                        <PrimaryButton displayText='Start New Game' callOnPress={() => {}} style={styles.button}/>
+                        <PrimaryButton displayText='Start New Game' callOnPress={callStartNewGame} style={styles.button}/>
                     </View>
                 </View>
             </View>

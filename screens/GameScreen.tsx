@@ -9,7 +9,7 @@ import AppTitle from 'components/AppTitle';
 
 interface GameScreenProps {
     chosenNumber:number,
-    onVictory: ()=> void
+    onVictory: (rounds:number) => void
 }
 
 
@@ -18,7 +18,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     const [currentGuess, setCurrentGuess] = useState(0)
     const [guessLoading, setGuessLoading] = useState(true)
     const [guessRange, setGuessRange] = useState({min:1,max:100})
-
+    const [guessRounds, setGuessRounds] = useState(0)
 
     useEffect(() => {
         generateGuess(guessRange.min, guessRange.max, chosenNumber);
@@ -27,7 +27,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     useEffect(() => {
         if (currentGuess === chosenNumber) {
             console.log('victory')
-            onVictory()
+            onVictory(guessRounds)
         }
     }, [currentGuess, chosenNumber, onVictory])
 
@@ -41,6 +41,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         setGuessLoading(false);
         setCurrentGuess(randomNum);
+        setGuessRounds(prev => prev + 1);
     }
 
     async function nextGuessHandler(higher:boolean) {

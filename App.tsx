@@ -10,23 +10,29 @@ import GameOverScreen from 'screens/GameOverScreen';
 
 export default function App() {
   const [userNumber, setUserNumber] = useState<number>();
-  const [gameIsOver, setGameIsOver] = useState(true)
+  const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessRounds, setGuessRounds] = useState(0)
 
   function selectedNumberHandler(choice:number) {
     setUserNumber(choice)
     setGameIsOver(false)
   }
 
-  function victoryHandler() {
+  function handleGameOver(rounds:number) {
     setGameIsOver(true)
+    setGuessRounds(rounds)
+  }
+
+  function startNewGameHandler() {
+    setUserNumber(undefined)
   }
   
   let screen = <StartGameScreen callOnSubmit={selectedNumberHandler}/>
   
   if (gameIsOver && (userNumber != null)) {
-    screen = <GameOverScreen/>
+    screen = <GameOverScreen guessRequired={guessRounds} numberSelected={userNumber} callStartNewGame={startNewGameHandler}/>
   } else if (userNumber) {
-    screen = <GameScreen chosenNumber={userNumber} onVictory={victoryHandler}/>
+    screen = <GameScreen chosenNumber={userNumber} onVictory={handleGameOver}/>
   }
 
 
