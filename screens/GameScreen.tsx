@@ -3,7 +3,9 @@ import { Text, View, StyleSheet, Alert } from 'react-native'
 
 import NumberView from 'components/NumberView';
 import PrimaryButton from 'components/PrimaryButton'
-import Title from 'components/ScreenTitle';
+import ScreenTitle from 'components/ScreenTitle';
+import AppTitle from 'components/AppTitle';
+
 
 interface GameScreenProps {
     chosenNumber:number,
@@ -66,16 +68,19 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     }
 
     return (
-    <View>
-        <View style={styles.headerWrapper}>
-            <Title>Opponent's Guess</Title>
-            <View style={styles.numberDisplayContainer}>
-                <NumberView value={chosenNumber} isLoading={false} title={'Chosen Number'}/>
-                <NumberView value={currentGuess} isLoading={guessLoading} title={'Current Guess'}/>
-            </View>
-            <View style={styles.buttonContainer}>
-                <PrimaryButton callOnPress={() => nextGuessHandler(true)} displayText='Higher' style={styles.button}/>
-                <PrimaryButton callOnPress={() => nextGuessHandler(false)} displayText='Lower' style={styles.button}/>
+    <View style={{flex:1}}>
+        <AppTitle/>
+        <View style={styles.contentContainer}>
+            <View style={styles.headerWrapper}>
+                <ScreenTitle>Opponent's Guess</ScreenTitle>
+                <View style={styles.numberDisplayContainer}>
+                    <NumberView value={chosenNumber} isLoading={false} title={'Chosen Number'}/>
+                    <NumberView value={currentGuess} isLoading={guessLoading} title={'Current Guess'}/>
+                </View>
+                <View style={styles.buttonContainer}>
+                    <PrimaryButton callOnPress={() => nextGuessHandler(true)} displayText='Higher' style={styles.button}/>
+                    <PrimaryButton callOnPress={() => nextGuessHandler(false)} displayText='Lower' style={styles.button}/>
+                </View>
             </View>
         </View>
     </View>
@@ -83,11 +88,19 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
 }
 
 const styles = StyleSheet.create({
+    contentContainer: {
+        flex:1,
+        flexDirection: 'column',
+        gap:10,
+        alignItems: 'stretch',
+        justifyContent: 'center'
+    },
+    
     headerWrapper:{
         backgroundColor:'#BFC0C0',
         padding:8,
         borderRadius:8,
-        gap: 10
+        gap: 10,
     },
     
     numberDisplayContainer: {
