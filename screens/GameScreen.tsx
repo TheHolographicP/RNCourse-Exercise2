@@ -84,8 +84,7 @@ const styles = StyleSheet.create({
     headerWrapper:{
         backgroundColor:'#BFC0C0',
         padding:8,
-        margin: 8,
-        borderRadius:8,
+                borderRadius:8,
         gap: 10
     },
     

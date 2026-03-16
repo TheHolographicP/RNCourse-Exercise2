@@ -39,7 +39,7 @@ export default function App() {
           style={styles.imageBkg}
           imageStyle={{opacity:0.15}}
         >
-          <SafeAreaView style={styles.rootScreen} >
+          <SafeAreaView style={styles.screensContainer} >
             {screen}
           </SafeAreaView> 
         </ImageBackground>
@@ -51,6 +51,10 @@ export default function App() {
 const styles = StyleSheet.create({
   rootScreen:{
     flex:1,
+  },
+  screensContainer: {
+    flex:1,
+    padding:8
   },
   imageBkg: {
     flex:1,

@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
         gap:10,
         backgroundColor:Colors.primary3,
         padding:8,
-        margin: 8,
         borderRadius:8
     },
     buttonContainer: {
