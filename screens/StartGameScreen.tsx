@@ -75,12 +75,14 @@ const styles = StyleSheet.create({
         backgroundColor:Colors.primary3,
         padding:8,
         borderRadius:8,
+        alignItems: 'stretch',
+        justifyContent: 'center'
     },
     buttonContainer: {
         flexDirection: 'row',
         alignItems: 'stretch',
         gap:10,
-        flex:1
+        marginTop: 6
     },
     button:{
         flex:1
