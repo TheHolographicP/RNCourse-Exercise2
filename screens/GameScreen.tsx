@@ -26,7 +26,6 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
 
     useEffect(() => {
         if (currentGuess === chosenNumber) {
-            console.log('victory')
             onVictory(guessItems.length)
         }
     }, [currentGuess, chosenNumber, onVictory])
