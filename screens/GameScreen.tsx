@@ -106,8 +106,7 @@ const styles = StyleSheet.create({
         backgroundColor:'#BFC0C0',
         padding:8,
         borderRadius:8,
-        gap: 10,
-        flex:1
+        gap: 10
     },
     numberDisplayContainer: {
         flexDirection: 'row',
