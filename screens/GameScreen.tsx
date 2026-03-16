@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Alert } from 'react-native'
 
 import NumberView from 'components/NumberView';
 import PrimaryButton from 'components/PrimaryButton'
+import Title from 'components/ScreenTitle';
 
 interface GameScreenProps {
     chosenNumber:number,
@@ -67,6 +68,7 @@ function GameScreen({chosenNumber, onVictory}:GameScreenProps) {
     return (
     <View>
         <View style={styles.headerWrapper}>
+            <Title>Opponent's Guess</Title>
             <View style={styles.numberDisplayContainer}>
                 <NumberView value={chosenNumber} isLoading={false} title={'Chosen Number'}/>
                 <NumberView value={currentGuess} isLoading={guessLoading} title={'Current Guess'}/>
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     headerWrapper:{
         backgroundColor:'#BFC0C0',
         padding:8,
-                borderRadius:8,
+        borderRadius:8,
         gap: 10
     },
     
