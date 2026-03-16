@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { TextInput, Text, View, StyleSheet, Alert} from 'react-native';
 import PrimaryButton from 'components/PrimaryButton'
 import Colors from 'constants/colors'
+import AppTitle from 'components/AppTitle';
+import ScreenTitle from 'components/ScreenTitle';
 
 
 interface StartGameScreenProps {
@@ -36,19 +38,23 @@ function StartGameScreen({callOnSubmit} : StartGameScreenProps) {
 
     return (
         <View style={{flex:1}}>
-            <View style={styles.inputContainer}>
-                <TextInput
-                    style={styles.targetInput}
-                    value={numberInputText}
-                    onSubmitEditing={handleSubmit}
-                    onChangeText={inputHandler}
-                    maxLength={2}
-                    keyboardType='number-pad'
-                    
-                />
-                <View style={styles.buttonContainer}>
-                    <PrimaryButton callOnPress={handleReset} displayText='Reset' style={styles.button}/>
-                    <PrimaryButton callOnPress={handleSubmit} displayText='Confirm' style={styles.button}/>
+            <AppTitle/>
+            <View style={styles.contentContainer}>
+                <ScreenTitle>Pick a Number</ScreenTitle>
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.targetInput}
+                        value={numberInputText}
+                        onSubmitEditing={handleSubmit}
+                        onChangeText={inputHandler}
+                        maxLength={2}
+                        keyboardType='number-pad'
+                        
+                    />
+                    <View style={styles.buttonContainer}>
+                        <PrimaryButton callOnPress={handleReset} displayText='Reset' style={styles.button}/>
+                        <PrimaryButton callOnPress={handleSubmit} displayText='Confirm' style={styles.button}/>
+                    </View>
                 </View>
             </View>
         </View>
@@ -56,17 +62,25 @@ function StartGameScreen({callOnSubmit} : StartGameScreenProps) {
 }
 
 const styles = StyleSheet.create({
+    contentContainer: {
+        flex:1,
+        flexDirection: 'column',
+        gap:10,
+        alignItems: 'stretch',
+        justifyContent: 'center'
+    },
     inputContainer: {
         flexDirection: 'column',
         gap:10,
         backgroundColor:Colors.primary3,
         padding:8,
-        borderRadius:8
+        borderRadius:8,
     },
     buttonContainer: {
         flexDirection: 'row',
         alignItems: 'stretch',
         gap:10,
+        flex:1
     },
     button:{
         flex:1
@@ -78,7 +92,7 @@ const styles = StyleSheet.create({
         borderColor: Colors.primary1,
         color: 'white',
         fontSize:30,
-        textAlign: 'center'
+        textAlign: 'center',
     },
 });
 

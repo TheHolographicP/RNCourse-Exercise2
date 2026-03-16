@@ -21,13 +21,14 @@ const styles = StyleSheet.create({
     addGoalButton: {
         backgroundColor:Colors.primary1,
         borderRadius: 6,
-        padding: 8,
-        
+        paddingVertical: 10,
+        paddingHorizontal: 8
     },
     addGoalButtonPressed: {
         backgroundColor:"#373b50",
         borderRadius: 6,
-        padding: 8
+        paddingVertical: 10,
+        paddingHorizontal: 8
     },
     text: {
         alignSelf: 'center',
